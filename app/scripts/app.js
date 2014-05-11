@@ -4,7 +4,8 @@ angular
   .module('reparacionesFeApp', [
     'ngCookies',
     'ngSanitize',
-    'ngRoute'
+    'ngRoute',
+    'angular-hal'
   ])
   .config(function ($routeProvider) {
     $routeProvider
