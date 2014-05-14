@@ -1,0 +1,13 @@
+{
+  "apiRoot": true,
+  "name": "MyM",
+  "_links": {
+    "self": {
+      "href": "/api/shop.json"
+    },
+    "customers": {
+      "href": "/customers/customers.json{?page,size,sort}",
+      "templated": true
+    }
+  }
+}
