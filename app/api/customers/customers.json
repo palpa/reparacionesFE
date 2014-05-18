@@ -1,0 +1,31 @@
+{
+  "customersRoot": true,
+  "_links": {
+    "self": {
+      "href": "/customers/customers.json{?page,size,sort}",
+      "templated": true
+    }
+  },
+  "_embedded": {
+    "emb:customers": [
+      {
+        "_links": {
+          "self": {
+            "href": "/customers/123"
+          }
+        },
+        "id": "123",
+        "name": "Juan Mendoza"
+      },
+      {
+        "_links": {
+          "self": {
+            "href": "/customers/124"
+          }
+        },
+        "id": "124",
+        "name": "Damian Palpacelli"
+      }
+    ]
+  }
+}
