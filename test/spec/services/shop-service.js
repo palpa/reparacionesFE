@@ -26,22 +26,20 @@ describe('Service: ShopService', function () {
   });
 
   // check to see if it has the expected function
-  it('should have a load function', function () {
-    expect(angular.isFunction(ShopService.load)).toBe(true);
+  it('should have a getResource function', function () {
+    expect(angular.isFunction(ShopService.getResource)).toBe(true);
   });
 
   it('should have a halClient with a $get function defined', function () {
     expect(halClient.$get).toBeDefined();
   });
 
-  it('should call halClient.$get(apiRootUrl) inside its load function', function () {
-    ShopService.load();
+  it('should call halClient.$get(apiRootUrl)', function () {
     expect(halClient.$get).toHaveBeenCalledWith('api/shop.json');
   });
 
-  it('halClient.$get function should have been called', function () {
-    ShopService.load();
-    expect(halClient.$get).toHaveBeenCalled();
+  it('should have a getResource function', function () {
+    expect(angular.isFunction(ShopService.getResource)).toBe(true);
   });
 
 });
