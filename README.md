@@ -8,7 +8,7 @@ Installation Steps:
 *(Check Installation Requirements first)*
   
  1. **git clone https://github.com/palpa/reparacionesFE.git**
- 2. **cd fampFrontend**
+ 2. **cd reparacionesFE**
  3. **bower install & npm install** (Installs project dependencies)
 
 Usage:
