@@ -23,4 +23,11 @@ describe('Controller: CustomerListCtrl', function () {
   it('should attach a title to the scope', function () {
     expect(scope.title).toEqual('Listado de Clientes');
   });
+
+  it('should set the default value of orderProp model', function () {
+    expect(scope.orderProp).toBe('name');
+  });
+
+  it('should create "customers" model with 2 customers fetched from xhr', function () {
+  });
 });
