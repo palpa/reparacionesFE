@@ -35,6 +35,7 @@ describe('Service: ShopService', function () {
   });
 
   it('should call halClient.$get(apiRootUrl)', function () {
+    ShopService.load();
     expect(halClient.$get).toHaveBeenCalledWith('api/shop.json');
   });
 

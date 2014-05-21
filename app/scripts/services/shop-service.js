@@ -2,11 +2,12 @@
 
 angular.module('reparacionesFeApp')
   .factory('ShopService', function (halClient) {
-    var apiRoot  = halClient.$get('api/shop.json');
-
     return {
+      load: function () {
+        return halClient.$get('api/shop.json');
+      },
       getResource: function (resource) {
-        return apiRoot.then(function (shopResource) {
+        return this.load().then(function (shopResource) {
           return shopResource.$get(resource);
         }, function (result) {
           console.error('failed', result);
