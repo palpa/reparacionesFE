@@ -3,13 +3,15 @@
 angular.module('reparacionesFeApp')
   .factory('CustomerService', function (ShopService) {
     // Service logic
-    var customersResource = ShopService.getResource('customers');
 
     // Public API here
     return {
+      load: function () {
+        return ShopService.getResource('customers');
+      },
       query: function () {
-        return customersResource.then(function (resource) {
-          return resource.$get('emb:customers');
+        return this.load().then(function (customerResource) {
+          return customerResource.$get('emb:customers');
         });
       }
     };
