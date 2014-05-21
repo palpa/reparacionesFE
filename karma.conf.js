@@ -48,6 +48,11 @@ module.exports = function(config) {
     // - IE (only Windows)
     browsers: ['Chrome'],
 
+    plugins : [
+      'karma-chrome-launcher',
+      'karma-firefox-launcher',
+      'karma-jasmine'
+    ],
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
