@@ -6,41 +6,127 @@ describe('Service: ShopService', function () {
   beforeEach(module('reparacionesFeApp'));
 
   // instantiate service
-  var ShopService, halClient;
+  var ShopService, halClient, $httpBackend;
 
-
-  beforeEach(function () {
-
-    module(function ($provide) {
-      halClient = jasmine.createSpyObj('halClient', ['$get']);
-      $provide.value('halClient', halClient);
-    });
-
-    inject(function (_ShopService_) {
+  beforeEach(inject(function (_ShopService_, _halClient_, _$httpBackend_) {
       ShopService = _ShopService_;
-    });
-  });
+      halClient = _halClient_;
+      $httpBackend = _$httpBackend_;
+
+      spyOn(halClient, '$get').andCallThrough();
+      spyOn(ShopService, 'getResource').andCallThrough();
+    })
+  );
 
   it('should do something', function () {
     expect(!!ShopService).toBe(true);
   });
 
-  // check to see if it has the expected function
-  it('should have a getResource function', function () {
-    expect(angular.isFunction(ShopService.getResource)).toBe(true);
-  });
+  describe('should load the Api Root Shop Resource', function () {
 
-  it('should have a halClient with a $get function defined', function () {
-    expect(halClient.$get).toBeDefined();
-  });
+    beforeEach(function () {
+      $httpBackend
+        .expect('GET', 'api/shop.json')
+        .respond({
+          'apiRoot': true,
+          'name': 'MyM',
+          '_links': {
+            'self': {
+              'href': '/api/shop.json'
+            },
+            'customers': {
+              'href': '/customers/customers.json{?page,size,sort}',
+              'templated': true
+            }
+          }
+        });
+    });
 
-  it('should call halClient.$get(apiRootUrl)', function () {
-    ShopService.load();
-    expect(halClient.$get).toHaveBeenCalledWith('api/shop.json');
-  });
+    afterEach(function () {
+      $httpBackend.verifyNoOutstandingExpectation();
+    });
 
-  it('should have a getResource function', function () {
-    expect(angular.isFunction(ShopService.getResource)).toBe(true);
-  });
+    describe('using Shop service load function', function () {
+      var shopResource;
+      beforeEach(function () {
+        shopResource = ShopService.load();
+      });
 
+      it('should be defined', function () {
+        expect(angular.isFunction(ShopService.load)).toBe(true);
+      });
+
+      it('with the right path', function () {
+        expect(halClient.$get).toHaveBeenCalledWith('api/shop.json');
+      });
+
+      it('that should have an "apiRoot" property with value "true" ', function () {
+        shopResource.then(function (result) {
+          shopResource = result;
+        });
+
+        $httpBackend.flush();
+
+        expect(shopResource.apiRoot).toBe(true);
+      });
+    });
+
+    describe('using a getResource function that', function () {
+      var customerResource;
+
+      beforeEach(function () {
+        customerResource = ShopService.getResource('customers');
+      });
+
+      it('should be defined', function () {
+        expect(angular.isFunction(ShopService.getResource)).toBe(true);
+      });
+
+      it('should return a Customer Resource given "customers" as parameter', function () {
+        $httpBackend
+          .expect('GET', 'api/customers/customers.json')
+          .respond({
+            'customersRoot': true,
+            '_links': {
+              'self': {
+                'href': '/customers/customers.json{?page,size,sort}',
+                'templated': true
+              }
+            },
+            '_embedded': {
+              'emb:customers': [
+                {
+                  '_links': {
+                    'self': {
+                      'href': '/customers/123'
+                    }
+                  },
+                  'id': '123',
+                  'name': 'Juan Mendoza'
+                },
+                {
+                  '_links': {
+                    'self': {
+                      'href': '/customers/124'
+                    }
+                  },
+                  'id': '124',
+                  'name': 'Damian Palpacelli'
+                }
+              ]
+            }
+          });
+
+        expect(ShopService.getResource).toHaveBeenCalledWith('customers');
+
+        customerResource.then(function (result) {
+          customerResource = result;
+        });
+
+        $httpBackend.flush();
+
+        expect(customerResource.customersRoot).toBe(true);
+      });
+    });
+  });
 });
