@@ -11,7 +11,7 @@ angular.module('reparacionesFeApp')
       },
       query: function () {
         return this.load().then(function (customerResource) {
-          return customerResource.$get('emb:customers');
+          return customerResource.$get('customerResourceList');
         });
       }
     };

@@ -3,6 +3,6 @@
 <ul class="customers">
     <li ng-repeat="customer in customers | orderBy:orderProp"
         class="thumbnail product-listing">
-        <p><a href="#/customers/{{customer.id}}">{{customer.name}}</a></p>
+        <p><a href="#/customers/{{customer.id}}">{{customer.firstName + ' ' + customer.lastName}}</a></p>
     </li>
 </ul>

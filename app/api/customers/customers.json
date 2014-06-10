@@ -7,7 +7,7 @@
     }
   },
   "_embedded": {
-    "emb:customers": [
+    "customerResourceList": [
       {
         "_links": {
           "self": {

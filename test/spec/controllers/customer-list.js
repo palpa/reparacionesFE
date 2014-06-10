@@ -48,7 +48,7 @@ describe('Controller: CustomerListCtrl', function () {
   });
 
   it('should set the default value of orderProp model', function () {
-    expect(scope.orderProp).toBe('name');
+    expect(scope.orderProp).toBe('lastName');
   });
 
   describe('should create a customers model that', function () {
