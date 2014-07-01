@@ -5,6 +5,7 @@ angular
     'ngCookies',
     'ngSanitize',
     'ngRoute',
+    'ui.bootstrap',
     'angular-hal'
   ])
   .config(function ($routeProvider) {
