@@ -62,7 +62,7 @@ angular.module('reparacionesFeApp')
         }
 
         for (var environment in _environments) {
-          if (typeof _environments[environment].host && _environments[environment].host == host) {
+          if (typeof _environments[environment].host && _environments[environment].host === host) {
             _environment = environment;
             return _environment;
           }
@@ -73,5 +73,5 @@ angular.module('reparacionesFeApp')
       get: function (property) {
         return _environments[this.getEnvironment()].config[property];
       }
-    }
+    };
   });
