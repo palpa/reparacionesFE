@@ -35,7 +35,7 @@ describe('Service: ShopService', function () {
               'href': '/api/shop.json'
             },
             'customers': {
-              'href': '/customers/customers.json{?page,size,sort}',
+              'href': '/customers/customers.json{?offset,limit}',
               'templated': true
             }
           }
@@ -84,7 +84,7 @@ describe('Service: ShopService', function () {
 
       it('should return a Customer Resource given "customers" as parameter', function () {
         $httpBackend
-          .expect('GET', 'api/customers/customers.json')
+          .expect('GET', 'api/customers/customers.json?limit=5')
           .respond({
             'customersRoot': true,
             '_links': {

@@ -8,9 +8,18 @@ angular.module('reparacionesFeApp')
     // set the default order property
     $scope.orderProp = 'lastName';
 
-    CustomerService.query().then(function(customers) {
-      $scope.customers = customers;
-    });
+    var setup = function (offset) {
+      CustomerService.query($scope, offset).then(function (customers) {
+        $scope.customers = customers;
+      });
+    };
+
+    $scope.pageChanged = function() {
+      setup($scope.currentPage - 1);
+    };
+
+    $scope.currentPage = 1;
+    $scope.pageChanged();
 
   })
 ;

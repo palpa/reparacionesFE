@@ -6,7 +6,7 @@
       "href": "/api/shop.json"
     },
     "customers": {
-      "href": "/customers/customers.json{?page,size,sort}",
+      "href": "/customers/customers.json{?offset,limit}",
       "templated": true
     }
   }

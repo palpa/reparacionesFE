@@ -9,19 +9,15 @@ angular.module('reparacionesFeApp')
       load: function () {
         return halClient.$get(apiRoot);
       },
-      getResource: function (resource) {
+      getResource: function (resource, offset) {
         return this.load().then(function (shopResource) {
-          return shopResource.$get(resource);
+          return shopResource.$get(resource, {'offset': offset, 'limit': 5});
         }, function (result) {
           console.error('failed', result);
         });
       },
-      getCustomersResource: function (resource) {
-        return this.load().then(function (shopResource) {
-          return shopResource.$get(resource);
-        }, function (result) {
-          console.error('failed', result);
-        });
+      getCustomersResource: function (offset) {
+        return this.getResource('customers', offset);
       }
     };
   });

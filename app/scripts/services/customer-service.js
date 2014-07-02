@@ -6,11 +6,12 @@ angular.module('reparacionesFeApp')
 
     // Public API here
     return {
-      load: function () {
-        return ShopService.getResource('customers');
+      load: function (offset) {
+        return ShopService.getCustomersResource(offset);
       },
-      query: function () {
-        return this.load().then(function (customerResource) {
+      query: function (scope, offset) {
+        return this.load(offset).then(function (customerResource) {
+          scope.page = customerResource.page;
           return customerResource.$get('customerResourceList');
         });
       }

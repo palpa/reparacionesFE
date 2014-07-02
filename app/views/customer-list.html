@@ -1,8 +1,16 @@
 <h4>{{title}}</h4>
 
+<div class="pagination-centered">
+    <pagination total-items="page.totalElements" ng-model="currentPage" max-size="10" items-per-page="page.size" class="pagination-sm" boundary-links="true" ng-change="pageChanged()"></pagination>
+</div>
+
 <ul class="customers">
     <li ng-repeat="customer in customers | orderBy:orderProp"
         class="thumbnail product-listing">
         <p><a href="#/customers/{{customer.id}}">{{customer.firstName + ' ' + customer.lastName}}</a></p>
     </li>
 </ul>
+
+<div class="pagination-centered">
+    <pagination total-items="page.totalElements" ng-model="currentPage" max-size="10" items-per-page="page.size" class="pagination-sm" boundary-links="true" ng-change="pageChanged()"></pagination>
+</div>

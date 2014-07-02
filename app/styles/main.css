@@ -77,3 +77,7 @@ body {
     border-bottom: 0;
   }
 }
+
+.pagination-centered {
+    text-align: center;
+}
