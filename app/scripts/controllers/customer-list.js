@@ -5,9 +5,6 @@ angular.module('reparacionesFeApp')
 
     $scope.title = 'Listado de Clientes';
 
-    // set the default order property
-    $scope.orderProp = 'lastName';
-
     var setup = function (offset) {
       CustomerService.query($scope, offset).then(function (customers) {
         $scope.customers = customers;

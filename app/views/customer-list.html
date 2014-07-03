@@ -5,7 +5,7 @@
 </div>
 
 <ul class="customers">
-    <li ng-repeat="customer in customers | orderBy:orderProp"
+    <li ng-repeat="customer in customers"
         class="thumbnail product-listing">
         <p><a href="#/customers/{{customer.id}}">{{customer.firstName + ' ' + customer.lastName}}</a></p>
     </li>
