@@ -1,8 +1,4 @@
 <div class="header">
-    <ul ng-controller="NavCtrl" class="nav nav-pills pull-right">
-        <li ng-repeat="item in items" ng-class="{active: isActive(item)}">
-            <a ng-href="#{{item.path}}">{{item.title}}</a>
-        </li>
-    </ul>
+    <app-nav-bar></app-nav-bar>
     <h3 class="text-muted">Reparaciones</h3>
 </div>

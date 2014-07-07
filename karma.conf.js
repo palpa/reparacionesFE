@@ -21,6 +21,8 @@ module.exports = function(config) {
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
+      'app/views/**/*.html',
+      'app/views/*.html',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],
@@ -55,6 +57,7 @@ module.exports = function(config) {
       'karma-firefox-launcher',
       'karma-phantomjs-launcher',
       'karma-coverage',
+      'karma-ng-html2js-preprocessor',
       'karma-jasmine'
     ],
 
@@ -65,7 +68,13 @@ module.exports = function(config) {
       // source files, that you wanna generate coverage for
       // do not include tests or libraries
       // (these files will be instrumented by Istanbul)
+      'app/views/**/*.html': ['ng-html2js'],
       'app/scripts/**/*.js': ['coverage']
+    },
+
+    ngHtml2JsPreprocessor: {
+      // strip this from the file path
+      stripPrefix: 'app/'
     },
 
     // optionally, configure the reporter

@@ -1,0 +1,5 @@
+<ul class="nav nav-pills pull-right">
+    <li ng-repeat="item in items" ng-class="{active: isActive(item)}">
+        <a ng-href="#{{item.path}}">{{item.title}}</a>
+    </li>
+</ul>

@@ -25,12 +25,12 @@
 
 
     <div class="container">
-        <div ng-include src="'views/header.html'"></div>
+        <app-header></app-header>
 
         <!-- Add your site or application content here -->
         <div ng-view=""></div>
 
-        <div ng-include src="'views/footer.html'"></div>
+        <app-footer></app-footer>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -68,9 +68,11 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/services/shop-service.js"></script>
         <script src="scripts/controllers/customer-list.js"></script>
-        <script src="scripts/controllers/nav.js"></script>
         <script src="scripts/services/customer-service.js"></script>
         <script src="scripts/services/config.js"></script>
+        <script src="scripts/directives/app-header.js"></script>
+        <script src="scripts/directives/app-footer.js"></script>
+        <script src="scripts/directives/app-nav-bar.js"></script>
         <!-- endbuild -->
 </body>
 </html>

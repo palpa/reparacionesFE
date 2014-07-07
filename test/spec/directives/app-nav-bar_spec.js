@@ -1,29 +1,25 @@
 'use strict';
 
-describe('Controller: NavCtrl', function () {
+describe('Directive: navBar', function () {
 
-  // load the controller's module
+  // load the directive's module
   beforeEach(module('reparacionesFeApp'));
 
-  var NavCtrl,
+  beforeEach(module('views/nav-bar.html'));
+
+  var element,
     scope;
 
-  // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
-    scope = $rootScope.$new();
-    NavCtrl = $controller('NavCtrl', {
-      $scope: scope
-    });
+  beforeEach(inject(function ($rootScope, $compile) {
+    element = angular.element('<app-nav-bar></app-nav-bar>');
+    element = $compile(element)($rootScope);
+    $rootScope.$digest();
+    scope = element.isolateScope();
   }));
-
-  it('should be defined', function () {
-    expect(NavCtrl).toBeDefined();
-  });
 
   it('should attach a list of Nav Items to the scope', function () {
     expect(scope.items.length).toBe(2);
   });
-
 
   describe('has an isActive function that', function () {
 
@@ -37,13 +33,12 @@ describe('Controller: NavCtrl', function () {
     });
 
     it('should returns true for /customers path', function () {
-      expect(scope.isActive({path : '/customers'})).toBe(true);
+      expect(scope.isActive({path: '/customers'})).toBe(true);
     });
 
     it('should returns false for /customers path', function () {
-      expect(scope.isActive({path : '/'})).toBe(false);
+      expect(scope.isActive({path: '/'})).toBe(false);
     });
 
   });
-
 });
