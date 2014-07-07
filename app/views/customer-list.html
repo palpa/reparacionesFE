@@ -1,8 +1,6 @@
 <h4>{{title}}</h4>
 
-<div class="pagination-centered">
-    <pagination total-items="page.totalElements" ng-model="currentPage" max-size="10" items-per-page="page.size" class="pagination-sm" boundary-links="true" ng-change="pageChanged()"></pagination>
-</div>
+<app-pagination-control page="page" current-page="currentPage" on-page-changed="pageChanged()"></app-pagination-control>
 
 <ul class="customers">
     <li ng-repeat="customer in customers"
@@ -11,6 +9,4 @@
     </li>
 </ul>
 
-<div class="pagination-centered">
-    <pagination total-items="page.totalElements" ng-model="currentPage" max-size="10" items-per-page="page.size" class="pagination-sm" boundary-links="true" ng-change="pageChanged()"></pagination>
-</div>
+<app-pagination-control page="page" current-page="currentPage" on-page-changed="pageChanged()"></app-pagination-control>
