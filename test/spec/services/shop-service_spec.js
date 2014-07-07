@@ -84,7 +84,7 @@ describe('Service: ShopService', function () {
 
       it('should return a Customer Resource given "customers" as parameter', function () {
         $httpBackend
-          .expect('GET', 'api/customers/customers.json?limit=5')
+          .expect('GET', 'api/customers/customers.json?limit=10')
           .respond({
             'customersRoot': true,
             '_links': {

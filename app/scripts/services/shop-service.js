@@ -11,7 +11,7 @@ angular.module('reparacionesFeApp')
       },
       getResource: function (resource, offset) {
         return this.load().then(function (shopResource) {
-          return shopResource.$get(resource, {'offset': offset, 'limit': 5});
+          return shopResource.$get(resource, {'offset': offset, 'limit': 10});
         }, function (result) {
           console.error('failed', result);
         });
