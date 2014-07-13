@@ -16,8 +16,10 @@ angular.module('reparacionesFeApp')
           console.error('failed', result);
         });
       },
-      getCustomersResource: function (offset) {
-        return this.getResource('customers', offset);
+      createResource: function (href, resource) {
+        return this.load().then(function (shopResource) {
+          return shopResource.$post(href, null, resource);
+        });
       }
     };
   });
