@@ -11,12 +11,18 @@ angular.module('reparacionesFeApp')
       });
     };
 
-    $scope.pageChanged = function() {
+    $scope.pageChanged = function () {
       setup($scope.currentPage - 1);
     };
 
     $scope.currentPage = 1;
-    $scope.pageChanged();
 
-  })
-;
+    $scope.$watch(function () {
+      return CustomerService.dataChanged();
+    }, function (newValue) {
+      //console.log(newValue + '-' + oldValue);
+      if (newValue) {
+        $scope.pageChanged();
+      }
+    });
+  });

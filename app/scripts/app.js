@@ -15,8 +15,7 @@ angular
         controller: 'MainCtrl'
       })
       .when('/customers', {
-        templateUrl: 'views/customer-tabs.html',
-        controller: 'CustomerCtrl'
+        template: '<app-customer-tabs></app-customer-tabs>'
       })
       .otherwise({
         redirectTo: '/'

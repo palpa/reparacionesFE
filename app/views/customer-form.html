@@ -1,46 +1,54 @@
-<form class="form-horizontal" role="form" name="customerForm" ng-submit="customerForm.$valid && update()" novalidate>
-    <fieldset>
+<div ng-controller="CustomerFormCtrl">
+    <form class="form-horizontal" role="form" name="customerForm" ng-submit="customerForm.$valid && update()"
+          novalidate>
+        <fieldset>
 
-        <!-- Form Name -->
-        <legend>Cliente</legend>
+            <!-- Form Name -->
+            <legend>Cliente</legend>
 
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="formFirstName">Nombre</label>
-            <div class="col-md-4">
-                <input id="formFirstName" name="firstName" ng-model="customer.firstName" type="text" placeholder="Ingrese nombre del cliente" class="form-control input-md" required="">
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="formFirstName">Nombre</label>
 
+                <div class="col-md-4">
+                    <input id="formFirstName" name="firstName" ng-model="customer.firstName" type="text"
+                           placeholder="Ingrese nombre del cliente" class="form-control input-md" required="">
+
+                </div>
             </div>
-        </div>
 
-        <!-- Text input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="formLastName">Apellido</label>
-            <div class="col-md-4">
-                <input id="formLastName" name="lastName" ng-model="customer.lastName" type="text" placeholder="Ingrese apellido del cliente" class="form-control input-md" required="">
-                <span ng-show="customer.lastNameMsg" class="help-block">{{customer.lastNameMsg}}</span>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="formLastName">Apellido</label>
+
+                <div class="col-md-4">
+                    <input id="formLastName" name="lastName" ng-model="customer.lastName" type="text"
+                           placeholder="Ingrese apellido del cliente" class="form-control input-md" required="">
+                    <span ng-show="customer.lastNameMsg" class="help-block">{{customer.lastNameMsg}}</span>
+                </div>
             </div>
-        </div>
 
-        <!-- Email input-->
-        <div class="form-group">
-            <label class="col-md-4 control-label" for="formEmail">E-mail</label>
-            <div class="col-md-4">
-                <input id="formEmail" name="email" ng-model="customer.email" type="email" placeholder="Ingrese E-mail del cliente" class="form-control input-md">
+            <!-- Email input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="formEmail">E-mail</label>
+
+                <div class="col-md-4">
+                    <input id="formEmail" name="email" ng-model="customer.email" type="email"
+                           placeholder="Ingrese E-mail del cliente" class="form-control input-md">
+                </div>
             </div>
-        </div>
 
-        <!-- Button (Double) -->
-        <div class="form-group">
-            <div class="col-md-offset-4 col-md-8">
-                <button type="submit" class="btn btn-primary">Enviar</button>
-                <button type="reset" class="btn btn-inverse" ng-click="reset()">Reset</button>
+            <!-- Button (Double) -->
+            <div class="form-group">
+                <div class="col-md-offset-4 col-md-8">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                    <button type="reset" class="btn btn-inverse" ng-click="reset()">Reset</button>
+                </div>
             </div>
-        </div>
 
-    </fieldset>
-</form>
-{{message}}
-<br>
-{{customer | json}}
-
+        </fieldset>
+    </form>
+    {{message}}
+    <br>
+    {{customer | json}}
+</div>
