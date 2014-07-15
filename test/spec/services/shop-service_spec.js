@@ -5,13 +5,23 @@ describe('Service: ShopService', function () {
   // load the service's module
   beforeEach(module('reparacionesFeApp'));
 
-  // instantiate service
-  var ShopService, halClient, $httpBackend;
+  beforeEach(module('api/shop.json'));
+  beforeEach(module('api/customers.json'));
 
-  beforeEach(inject(function (_ShopService_, _halClient_, _$httpBackend_) {
+  // instantiate service
+  var ShopService,
+    halClient,
+    shopFixture,
+    customerFixture,
+    $httpBackend;
+
+  beforeEach(inject(function (_ShopService_, _halClient_, _$httpBackend_, _apiShop_, _apiCustomers_) {
       ShopService = _ShopService_;
       halClient = _halClient_;
       $httpBackend = _$httpBackend_;
+
+      shopFixture = _apiShop_;
+      customerFixture = _apiCustomers_;
 
       spyOn(halClient, '$get').andCallThrough();
       spyOn(ShopService, 'getResource').andCallThrough();
@@ -27,19 +37,7 @@ describe('Service: ShopService', function () {
     beforeEach(function () {
       $httpBackend
         .expect('GET', 'api/shop.json')
-        .respond({
-          'apiRoot': true,
-          'name': 'MyM',
-          '_links': {
-            'self': {
-              'href': '/api/shop.json'
-            },
-            'customers': {
-              'href': '/customers/customers.json{?offset,limit}',
-              'templated': true
-            }
-          }
-        });
+        .respond(shopFixture);
     });
 
     afterEach(function () {
@@ -85,37 +83,7 @@ describe('Service: ShopService', function () {
       it('should return a Customer Resource given "customers" as parameter', function () {
         $httpBackend
           .expect('GET', 'api/customers/customers.json?limit=10')
-          .respond({
-            'customersRoot': true,
-            '_links': {
-              'self': {
-                'href': '/customers/customers.json{?page,size,sort}',
-                'templated': true
-              }
-            },
-            '_embedded': {
-              'emb:customers': [
-                {
-                  '_links': {
-                    'self': {
-                      'href': '/customers/123'
-                    }
-                  },
-                  'id': '123',
-                  'name': 'Juan Mendoza'
-                },
-                {
-                  '_links': {
-                    'self': {
-                      'href': '/customers/124'
-                    }
-                  },
-                  'id': '124',
-                  'name': 'Damian Palpacelli'
-                }
-              ]
-            }
-          });
+          .respond(customerFixture);
 
         expect(ShopService.getResource).toHaveBeenCalledWith('customers');
 
@@ -127,6 +95,19 @@ describe('Service: ShopService', function () {
 
         expect(customerResource.customersRoot).toBe(true);
       });
+    });
+  });
+
+  describe('provide a createResource function that', function () {
+    it('should be defined', function () {
+      expect(angular.isFunction(ShopService.createResource)).toBe(true);
+    });
+
+    it('should create a new resource', function () {
+      var customer = {firstName: 'john', lastName: 'Doe'};
+      ShopService.createResource('customers', customer);
+      //$httpBackend.flush();
+      expect(true).toBe(true);
     });
   });
 });

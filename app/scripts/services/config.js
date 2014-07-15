@@ -41,6 +41,15 @@ angular.module('reparacionesFeApp')
             apiroot: 'api/shop.json'
           }
         },
+        cobertura: {
+          host: 'localhost:8081',
+          config: {
+            /**
+             * Add any config properties you want in here for this environment
+             */
+            apiroot: 'api/shop.json'
+          }
+        },
         prod: {
           host: 'production.com',
           config: {

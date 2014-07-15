@@ -24,6 +24,7 @@ module.exports = function(config) {
       'app/views/**/*.html',
       'app/views/*.html',
       'test/mock/**/*.js',
+      'test/fixtures/*.json',
       'test/spec/**/*.js'
     ],
 
@@ -58,6 +59,7 @@ module.exports = function(config) {
       'karma-phantomjs-launcher',
       'karma-coverage',
       'karma-ng-html2js-preprocessor',
+      'karma-ng-json2js-preprocessor',
       'karma-jasmine'
     ],
 
@@ -68,8 +70,16 @@ module.exports = function(config) {
       // source files, that you wanna generate coverage for
       // do not include tests or libraries
       // (these files will be instrumented by Istanbul)
+      '**/*.json': ['json2js'],
       'app/views/**/*.html': ['ng-html2js'],
       'app/scripts/**/*.js': ['coverage']
+    },
+
+    ngJson2JsPreprocessor: {
+      // strip this from the file path
+      stripPrefix: 'test/fixtures/',
+      // prepend this to the
+      prependPrefix: 'api/'
     },
 
     ngHtml2JsPreprocessor: {
