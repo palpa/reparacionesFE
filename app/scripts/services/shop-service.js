@@ -4,10 +4,14 @@ angular.module('reparacionesFeApp')
   .factory('ShopService', function (halClient, Config) {
 
     var apiRoot = Config.get('apiroot');
-    
+    var apiRootResource = null;
+
     return {
       load: function () {
-        return halClient.$get(apiRoot);
+        if (apiRootResource === null) {
+          apiRootResource = halClient.$get(apiRoot);
+        }
+        return apiRootResource;
       },
       getResource: function (resource, offset) {
         return this.load().then(function (shopResource) {
