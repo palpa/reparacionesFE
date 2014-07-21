@@ -1,16 +1,44 @@
 <div ng-controller="CustomerListCtrl">
-    <h4>{{title}}</h4>
 
-    <app-pagination-control page="page" current-page="currentPage"
-                            on-page-changed="pageChanged()"></app-pagination-control>
+    <div class="row">
+        <div class="col-xs-12">
+            <h4>{{title}}</h4>
+        </div>
+    </div>
 
-    <ul class="customers">
-        <li ng-repeat="customer in customers"
-            class="thumbnail product-listing">
-            <p><a href="#/customers/{{customer.id}}">{{customer.firstName + ' ' + customer.lastName}}</a></p>
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col-xs-12">
+            <app-pagination-control page="page" current-page="currentPage"
+                                    on-page-changed="pageChanged()"></app-pagination-control>
+        </div>
+    </div>
 
-    <app-pagination-control page="page" current-page="currentPage"
-                            on-page-changed="pageChanged()"></app-pagination-control>
+
+    <div class="row" ng-repeat="customer in customers">
+        <div class="col-xs-8">
+            <ul>
+                <li class="thumbnail">
+                    <p><a href="">{{customer.firstName + ' ' + customer.lastName}}</a></p>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-2">
+            <a href="">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+        </div>
+        <div class="col-xs-2">
+            <a href="" ng-click="removeCustomer($index, customer)">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <app-pagination-control page="page" current-page="currentPage"
+                                    on-page-changed="pageChanged()"></app-pagination-control>
+        </div>
+    </div>
+
 </div>

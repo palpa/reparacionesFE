@@ -12,6 +12,7 @@ angular.module('reparacionesFeApp')
     };
 
     $scope.pageChanged = function () {
+      $scope.isLastEmptyPage();
       setup($scope.currentPage - 1);
     };
 
@@ -21,8 +22,23 @@ angular.module('reparacionesFeApp')
       return CustomerService.dataChanged();
     }, function (newValue) {
       //console.log(newValue + '-' + oldValue);
-      if (newValue) {
+      if (newValue || !$scope.customers) {
         $scope.pageChanged();
       }
     });
+
+    // Decrease current page number if it is needed for deletions
+    $scope.isLastEmptyPage = function () {
+      if ($scope.currentPage > 1 &&
+        $scope.page.totalPages === $scope.currentPage &&
+        $scope.customers.length === 0) {
+
+        $scope.currentPage--;
+      }
+    };
+
+    $scope.removeCustomer = function (index, customer) {
+      $scope.customers.splice(index, 1);
+      CustomerService.delete(customer);
+    };
   });
