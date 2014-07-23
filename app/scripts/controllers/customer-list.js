@@ -1,9 +1,15 @@
 'use strict';
 
 angular.module('reparacionesFeApp')
-  .controller('CustomerListCtrl', function ($scope, CustomerService) {
+  .controller('CustomerListCtrl', function ($scope, CustomerService, $modal) {
 
     $scope.title = 'Listado de Clientes';
+
+    $scope.items = [
+      'The first choice!',
+      'And another choice for you.',
+      'but wait! A third!'
+    ];
 
     var setup = function (offset) {
       CustomerService.query($scope, offset).then(function (customers) {
@@ -41,4 +47,19 @@ angular.module('reparacionesFeApp')
       $scope.customers.splice(index, 1);
       CustomerService.delete(customer);
     };
+
+    $scope.viewCustomerDetails = function (customer) {
+
+      var modalInstance = $modal.open({
+        templateUrl: 'views/customer-form.html',
+        scope: $scope
+      });
+
+      modalInstance.result.then(function (selectedItem) {
+        //$scope.selected = selectedItem;
+      }, function () {
+        console.info('Modal dismissed at: ' + new Date());
+      });
+    };
+
   });

@@ -70,12 +70,16 @@ body {
   }
   /* Space out the masthead */
   .header {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+.btns-header {
+    margin-bottom: 10px;
 }
 
 .pagination-centered {
@@ -88,4 +92,8 @@ body {
 
 .ng-valid.ng-dirty {
     border-color: #78FA89;
+}
+
+.text-align-center, .text-center {
+    text-align: center;
 }
