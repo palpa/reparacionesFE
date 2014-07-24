@@ -26,15 +26,15 @@ describe('Directive: appPaginationControl', function () {
     scope = element.isolateScope();
   }));
 
-  it('should show the page 1', function ($compile) {
+  it('should show the page 1', function () {
     expect(scope.currentPage).toBe(1);
   });
 
-  it('should has 100 elements in total', function ($compile) {
+  it('should has 100 elements in total', function () {
     expect(scope.page.totalElements).toBe(100);
   });
 
-  it('should has 10 elements per page', function ($compile) {
+  it('should has 10 elements per page', function () {
     expect(scope.page.size).toBe(10);
   });
 });

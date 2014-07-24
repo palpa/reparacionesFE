@@ -15,7 +15,7 @@ describe('Controller: CustomerListCtrl', function () {
       scope;
 
   beforeEach(function () {
-    module(function ($provide) {
+    module(function () {
       // CustomerService = jasmine.createSpyObj('CustomerService', ['query']);
       // $provide.value('CustomerService', CustomerService);
     });
