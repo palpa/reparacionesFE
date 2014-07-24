@@ -1,10 +1,20 @@
 'use strict';
 
+/**
+ * @ngdoc overview
+ * @name reparacionesFeApp
+ * @description
+ * # reparacionesFeApp
+ *
+ * Main module of the application.
+ */
 angular
   .module('reparacionesFeApp', [
+    'ngAnimate',
     'ngCookies',
-    'ngSanitize',
     'ngRoute',
+    'ngSanitize',
+    'ngTouch',
     'ui.bootstrap',
     'angular-hal'
   ])

@@ -9,6 +9,6 @@ before_script:
   - sleep 1 # give server time to start
 
 script:
-  - node_modules/karma/bin/karma start karma.travis.conf.js --no-auto-watch --single-run --browsers=Firefox,PhantomJS
+  - node_modules/karma/bin/karma start test/karma.travis.conf.js --no-auto-watch --single-run --browsers=Firefox,PhantomJS
 
 
