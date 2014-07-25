@@ -5,12 +5,6 @@ angular.module('reparacionesFeApp')
 
     $scope.title = 'Listado de Clientes';
 
-    $scope.items = [
-      'The first choice!',
-      'And another choice for you.',
-      'but wait! A third!'
-    ];
-
     var setup = function (offset) {
       CustomerService.query($scope, offset).then(function (customers) {
         $scope.customers = customers;
@@ -49,14 +43,47 @@ angular.module('reparacionesFeApp')
     };
 
     $scope.viewCustomerDetails = function (customer) {
+      console.log(customer);
+    };
+
+    $scope.addCustomer = function () {
+      openCustomerModalForm();
+    };
+
+    var ModalInstanceCtrl = function ($scope, $modalInstance, CustomerService) {
+
+      $scope.reset = function () {
+        $scope.customer = {};
+      };
+
+      $scope.reset();
+
+      $scope.update = function () {
+        CustomerService.create($scope.customer).then(function () {
+          $scope.message = 'Cliente Creado con exito';
+          $scope.reset();
+        });
+      };
+
+      $scope.ok = function () {
+        $modalInstance.close();
+      };
+
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
+    };
+
+    var openCustomerModalForm = function () {
 
       var modalInstance = $modal.open({
         templateUrl: 'views/customer-form.html',
+        controller: ModalInstanceCtrl,
         scope: $scope
       });
 
       modalInstance.result.then(function (selectedItem) {
-        //$scope.selected = selectedItem;
+        $scope.selected = selectedItem;
       }, function () {
         console.info('Modal dismissed at: ' + new Date());
       });
