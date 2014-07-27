@@ -43,34 +43,57 @@ angular.module('reparacionesFeApp')
     };
 
     $scope.viewCustomerDetails = function (customer) {
-      console.log(customer);
+      $scope.myCustomer = customer;
+      $scope.formDisabled = true;
+      $scope.formTitle = 'Datos del ';
+      openCustomerModalForm();
+    };
+
+    $scope.editCustomer = function (customer) {
+      $scope.myCustomer = customer;
+      $scope.formDisabled = false;
+      $scope.formTitle = 'Editar ';
+      openCustomerModalForm();
     };
 
     $scope.addCustomer = function () {
+      $scope.myCustomer = {};
+      $scope.formDisabled = false;
+      $scope.formTitle = 'Alta de ';
       openCustomerModalForm();
     };
 
     var ModalInstanceCtrl = function ($scope, $modalInstance, CustomerService) {
 
       $scope.reset = function () {
-        $scope.customer = {};
+        $scope.customer = angular.copy($scope.myCustomer);
       };
 
       $scope.reset();
 
-      $scope.update = function () {
-        CustomerService.create($scope.customer).then(function () {
-          $scope.message = 'Cliente Creado con exito';
-          $scope.reset();
-        });
+      $scope.submit = function () {
+        if (angular.equals($scope.myCustomer, {})) {
+          CustomerService.create($scope.customer).then(function () {
+            $scope.message = 'Cliente creado con exito';
+            $scope.reset();
+          });
+        } else {
+          CustomerService.edit($scope.myCustomer, $scope.customer).then(function () {
+            $scope.formDisabled = true;
+            $scope.formTitle = 'Datos del ';
+            $scope.message = 'Cliente modificado con exito';
+          });
+        }
       };
 
-      $scope.ok = function () {
+      $scope.edit = function () {
+        $scope.formDisabled = false;
+        $scope.formTitle = 'Editar ';
+        $scope.message = null;
+      };
+
+      $scope.close = function () {
         $modalInstance.close();
-      };
-
-      $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
       };
     };
 

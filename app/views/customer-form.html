@@ -1,13 +1,13 @@
 <div>
     <!-- Form Name -->
     <div class="modal-header">
-        <legend style="margin-bottom:0; border-bottom: 0;">Cliente</legend>
+        <legend style="margin-bottom:0; border-bottom: 0;">{{formTitle}} Cliente</legend>
     </div>
 
     <div class="modal-body">
-        <form class="form-horizontal" role="form" name="customerForm" ng-submit="customerForm.$valid && update()"
+        <form class="form-horizontal" role="form" name="customerForm" ng-submit="customerForm.$valid && submit()"
               novalidate>
-            <fieldset>
+            <fieldset ng-disabled="formDisabled">
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="formFirstName">Nombre</label>
@@ -41,19 +41,21 @@
                 </div>
 
                 <!-- Button (Double) -->
-                <div class="form-group">
+                <div ng-hide="formDisabled" class="form-group">
                     <div class="col-md-offset-4 col-md-8">
                         <button type="submit" class="btn btn-primary">Enviar</button>
-                        <button type="reset" class="btn btn-inverse" ng-click="reset()">Reset</button>
+                        <button type="button" ng-click="reset()" class="btn btn-inverse">Reset</button>
                     </div>
                 </div>
 
             </fieldset>
         </form>
     </div>
+
+    <p>{{message}}</p>
+
     <div class="modal-footer">
-        {{message}}
-        <br>
-        {{customer | json}}
+        <button ng-show="formDisabled" class="btn btn-warning" ng-click="edit()">Editar</button>
+        <button class="btn btn-default" ng-click="close()">Cerrar</button>
     </div>
 </div>

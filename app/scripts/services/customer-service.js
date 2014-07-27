@@ -28,6 +28,11 @@ angular.module('reparacionesFeApp')
           dataChanged = true;
         });
       },
+      edit: function (customer, data) {
+        return customer.$put('self', null, data).then(function () {
+          dataChanged = true;
+        });
+      },
       delete: function (customer) {
         return customer.$del('self').then(function () {
           dataChanged = true;
