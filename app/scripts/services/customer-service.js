@@ -14,12 +14,11 @@ angular.module('reparacionesFeApp')
       load: function (offset) {
         return ShopService.getResource(hrefCustomer, offset);
       },
-      query: function (scope, offset) {
+      query: function (offset) {
         return this.load(offset).then(function (customerResource) {
-          scope.page = customerResource.page;
           return customerResource.$get('customerResourceList').then(function (customerResourceList) {
             dataChanged = false;
-            return customerResourceList;
+            return {customers: customerResourceList, page: customerResource.page};
           });
         });
       },

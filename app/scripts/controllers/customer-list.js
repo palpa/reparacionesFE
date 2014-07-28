@@ -6,8 +6,9 @@ angular.module('reparacionesFeApp')
     $scope.title = 'Listado de Clientes';
 
     var setup = function (offset) {
-      CustomerService.query($scope, offset).then(function (customers) {
-        $scope.customers = customers;
+      CustomerService.query(offset).then(function (result) {
+        $scope.customers = result.customers;
+        $scope.page = result.page;
       });
     };
 
