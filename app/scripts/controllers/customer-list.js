@@ -3,7 +3,7 @@
 angular.module('reparacionesFeApp')
   .controller('CustomerListCtrl', function ($scope, CustomerService, $modal) {
 
-    $scope.title = 'Listado de Clientes';
+    this.title = 'Listado de Clientes';
 
     var setup = function (offset) {
       CustomerService.query(offset).then(function (result) {
@@ -12,8 +12,18 @@ angular.module('reparacionesFeApp')
       });
     };
 
+    // Decrease current page number if it is needed for deletions
+    var isLastEmptyPage = function () {
+      if ($scope.currentPage > 1 &&
+        $scope.page.totalPages === $scope.currentPage &&
+        $scope.customers.length === 0) {
+
+        $scope.currentPage--;
+      }
+    };
+
     $scope.pageChanged = function () {
-      $scope.isLastEmptyPage();
+      isLastEmptyPage();
       setup($scope.currentPage - 1);
     };
 
@@ -28,15 +38,6 @@ angular.module('reparacionesFeApp')
       }
     });
 
-    // Decrease current page number if it is needed for deletions
-    $scope.isLastEmptyPage = function () {
-      if ($scope.currentPage > 1 &&
-        $scope.page.totalPages === $scope.currentPage &&
-        $scope.customers.length === 0) {
-
-        $scope.currentPage--;
-      }
-    };
 
     $scope.removeCustomer = function (index, customer) {
       $scope.customers.splice(index, 1);

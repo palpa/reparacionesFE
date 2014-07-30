@@ -43,7 +43,7 @@ describe('Controller: CustomerListCtrl', function () {
   });
 
   it('should attach a title to the scope', function () {
-    expect(scope.title).toEqual('Listado de Clientes');
+    expect(CustomerListCtrl.title).toEqual('Listado de Clientes');
   });
 
   xit('should set the default value of orderProp model', function () {
