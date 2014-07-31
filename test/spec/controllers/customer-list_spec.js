@@ -69,17 +69,17 @@ describe('Controller: CustomerListCtrl', function () {
     });
 
     it('should contain 2 customers', function () {
-      expect(scope.customers.length).toEqual(2);
+      expect(CustomerListCtrl.customers.length).toEqual(2);
     });
 
     it('should have first customer with id "123" and name "Juan Mendoza"', function () {
-      expect(scope.customers[0].id).toEqual('123');
-      expect(scope.customers[0].name).toEqual('Juan Mendoza');
+      expect(CustomerListCtrl.customers[0].id).toEqual('123');
+      expect(CustomerListCtrl.customers[0].name).toEqual('Juan Mendoza');
     });
 
     it('should have second customer with id "124" and name "Damian Palpacelli"', function () {
-      expect(scope.customers[1].id).toEqual('124');
-      expect(scope.customers[1].name).toEqual('Damian Palpacelli');
+      expect(CustomerListCtrl.customers[1].id).toEqual('124');
+      expect(CustomerListCtrl.customers[1].name).toEqual('Damian Palpacelli');
     });
   });
 });

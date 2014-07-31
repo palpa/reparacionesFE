@@ -16,7 +16,7 @@
             </div>
             <div class="col-sm-4 pull-right">
                 <p>
-                    <button type="button" class="btn btn-primary" ng-click="addCustomer()">
+                    <button type="button" class="btn btn-primary" ng-click="customerList.addCustomer()">
                         <span class="glyphicon glyphicon-plus-sign"></span> Nuevo Cliente
                     </button>
                 </p>
@@ -37,7 +37,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="customer in customers">
+            <tr ng-repeat="customer in customerList.customers">
                 <td>
                     {{customer.lastName}}
                 </td>
@@ -51,13 +51,13 @@
                     Email
                 </td>
                 <td style="width: 15%;">
-                    <a href="" ng-click="viewCustomerDetails(customer)" class="table-link btn btn-xs btn-info">
+                    <a href="" ng-click="customerList.viewCustomerDetails(customer)" class="table-link btn btn-xs btn-info">
                         <span class="glyphicon glyphicon-zoom-in"></span>
                     </a>
-                    <a href="" ng-click="editCustomer(customer)" class="table-link btn btn-xs btn-warning">
+                    <a href="" ng-click="customerList.editCustomer(customer)" class="table-link btn btn-xs btn-warning">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    <a href="" ng-click="removeCustomer($index, customer)" class="table-link btn btn-xs btn-danger">
+                    <a href="" ng-click="customerList.removeCustomer($index, customer)" class="table-link btn btn-xs btn-danger">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
                 </td>
@@ -65,8 +65,8 @@
             </tbody>
         </table>
         <div class="pull-right">
-            <app-pagination-control page="page" current-page="currentPage"
-                                    on-page-changed="pageChanged()"></app-pagination-control>
+            <app-pagination-control page="customerList.page" current-page="customerList.currentPage"
+                                    on-page-changed="customerList.pageChanged()"></app-pagination-control>
         </div>
     </div>
 </div>

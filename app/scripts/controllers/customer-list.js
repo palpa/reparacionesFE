@@ -5,92 +5,87 @@ angular.module('reparacionesFeApp')
 
     this.title = 'Listado de Clientes';
 
-    var setup = function (offset) {
+    var setup = function (offset, customerList) {
       CustomerService.query(offset).then(function (result) {
-        $scope.customers = result.customers;
-        $scope.page = result.page;
+        customerList.customers = result.customers;
+        customerList.page = result.page;
       });
     };
 
     // Decrease current page number if it is needed for deletions
-    var isLastEmptyPage = function () {
-      if ($scope.currentPage > 1 &&
-        $scope.page.totalPages === $scope.currentPage &&
-        $scope.customers.length === 0) {
-
-        $scope.currentPage--;
+    var isLastEmptyPage = function (customerList) {
+      if (customerList.currentPage > 1 &&
+        customerList.page.totalPages === customerList.currentPage &&
+        customerList.customers.length === 0) {
+        return true;
       }
+      return false;
     };
 
-    $scope.pageChanged = function () {
-      isLastEmptyPage();
-      setup($scope.currentPage - 1);
+    this.pageChanged = function () {
+      setup(this.currentPage - 1, this);
     };
 
-    $scope.currentPage = 1;
+    this.currentPage = 1;
+    this.pageChanged();
 
-    $scope.$watch(function () {
-      return CustomerService.dataChanged();
-    }, function (newValue) {
-      //console.log(newValue + '-' + oldValue);
-      if (newValue || !$scope.customers) {
-        $scope.pageChanged();
-      }
-    });
-
-
-    $scope.removeCustomer = function (index, customer) {
-      $scope.customers.splice(index, 1);
+    this.removeCustomer = function (index, customer) {
+      this.customers.splice(index, 1);
       CustomerService.delete(customer);
+
+      if (isLastEmptyPage(this)) {
+        this.currentPage--;
+        this.pageChanged();
+      }
     };
 
-    $scope.viewCustomerDetails = function (customer) {
-      $scope.myCustomer = customer;
-      $scope.formDisabled = true;
-      $scope.formTitle = 'Datos del ';
-      openCustomerModalForm();
-    };
-
-    $scope.editCustomer = function (customer) {
-      $scope.myCustomer = customer;
-      $scope.formDisabled = false;
-      $scope.formTitle = 'Editar ';
-      openCustomerModalForm();
-    };
-
-    $scope.addCustomer = function () {
-      $scope.myCustomer = {};
-      $scope.formDisabled = false;
-      $scope.formTitle = 'Alta de ';
-      openCustomerModalForm();
-    };
-
-    var ModalInstanceCtrl = function ($scope, $modalInstance, CustomerService) {
+    var ModalInstanceCtrl = function ($scope, $modalInstance, readOnly, selectedCustomer, CustomerService) {
 
       $scope.reset = function () {
-        $scope.customer = angular.copy($scope.myCustomer);
+        $scope.customer = angular.copy(selectedCustomer);
       };
 
-      $scope.reset();
+      var setTitle = function () {
+        if (readOnly.value) {
+          $scope.formTitle = 'Datos del ';
+        }
+        else if (angular.equals(selectedCustomer, {})) {
+          $scope.formTitle = 'Alta de ';
+        }
+        else {
+          $scope.formTitle = 'Editar ';
+        }
+      };
+
+      var setReadOnly = function (value) {
+        readOnly.value = value;
+        setTitle();
+      };
+
+      var setup = function () {
+        setTitle();
+        $scope.readOnly = readOnly;
+        $scope.reset();
+      };
+
+      setup();
 
       $scope.submit = function () {
-        if (angular.equals($scope.myCustomer, {})) {
+        if (angular.equals(selectedCustomer, {})) {
           CustomerService.create($scope.customer).then(function () {
             $scope.message = 'Cliente creado con exito';
             $scope.reset();
           });
         } else {
-          CustomerService.edit($scope.myCustomer, $scope.customer).then(function () {
-            $scope.formDisabled = true;
-            $scope.formTitle = 'Datos del ';
+          CustomerService.edit(selectedCustomer, $scope.customer).then(function () {
+            setReadOnly(true);
             $scope.message = 'Cliente modificado con exito';
           });
         }
       };
 
       $scope.edit = function () {
-        $scope.formDisabled = false;
-        $scope.formTitle = 'Editar ';
+        setReadOnly(false);
         $scope.message = null;
       };
 
@@ -99,19 +94,39 @@ angular.module('reparacionesFeApp')
       };
     };
 
-    var openCustomerModalForm = function () {
+    var openCustomerModalForm = function (customer, readOnly, customerList) {
 
       var modalInstance = $modal.open({
         templateUrl: 'views/customer-form.html',
         controller: ModalInstanceCtrl,
-        scope: $scope
+        resolve: {
+          readOnly: function () {
+            return {value: readOnly};
+          },
+          selectedCustomer: function () {
+            return customer;
+          }
+        }
       });
 
-      modalInstance.result.then(function (selectedItem) {
-        $scope.selected = selectedItem;
+      modalInstance.result.then(function (value) {
+        if (CustomerService.dataChanged()) {
+          customerList.pageChanged();
+        }
       }, function () {
         console.info('Modal dismissed at: ' + new Date());
       });
     };
 
+    this.viewCustomerDetails = function (customer) {
+      openCustomerModalForm(customer, true, this);
+    };
+
+    this.editCustomer = function (customer) {
+      openCustomerModalForm(customer, false, this);
+    };
+
+    this.addCustomer = function () {
+      openCustomerModalForm({}, false, this);
+    };
   });

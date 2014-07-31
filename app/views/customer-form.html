@@ -7,7 +7,7 @@
     <div class="modal-body">
         <form class="form-horizontal" role="form" name="customerForm" ng-submit="customerForm.$valid && submit()"
               novalidate>
-            <fieldset ng-disabled="formDisabled">
+            <fieldset ng-disabled="readOnly.value">
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="formFirstName">Nombre</label>
@@ -41,7 +41,7 @@
                 </div>
 
                 <!-- Button (Double) -->
-                <div ng-hide="formDisabled" class="form-group">
+                <div ng-hide="readOnly.value" class="form-group">
                     <div class="col-md-offset-4 col-md-8">
                         <button type="submit" class="btn btn-primary">Enviar</button>
                         <button type="button" ng-click="reset()" class="btn btn-inverse">Reset</button>
@@ -55,7 +55,7 @@
     <p>{{message}}</p>
 
     <div class="modal-footer">
-        <button ng-show="formDisabled" class="btn btn-warning" ng-click="edit()">Editar</button>
+        <button ng-show="readOnly.value" class="btn btn-warning" ng-click="edit()">Editar</button>
         <button class="btn btn-default" ng-click="close()">Cerrar</button>
     </div>
 </div>
