@@ -9,34 +9,17 @@ describe('Controller: CustomerListCtrl', function () {
   beforeEach(module('api/customers.json'));
 
   var CustomerListCtrl,
-      $httpBackend,
-      shopFixture,
-      customerFixture,
-      scope;
+    $httpBackend,
+    shopFixture,
+    customerFixture;
 
-  beforeEach(function () {
-    module(function () {
-      // CustomerService = jasmine.createSpyObj('CustomerService', ['query']);
-      // $provide.value('CustomerService', CustomerService);
-    });
+  beforeEach(inject(function ($controller, _$httpBackend_, _apiShop_, _apiCustomers_) {
+    $httpBackend = _$httpBackend_;
+    shopFixture = _apiShop_;
+    customerFixture = _apiCustomers_;
 
-    inject(function ($controller, $rootScope, _$httpBackend_, _apiShop_, _apiCustomers_) {
-
-      // var customerListDeferred = _$q_.defer();
-      // customerListDeferred.resolve(mockCustomerResource);
-      // CustomerService.query.andReturn(customerListDeferred.promise);
-
-      $httpBackend = _$httpBackend_;
-      shopFixture = _apiShop_;
-      customerFixture = _apiCustomers_;
-
-      // Initialize the controller and a mock scope
-      scope = $rootScope.$new();
-      CustomerListCtrl = $controller('CustomerListCtrl', {
-        $scope: scope
-      });
-    });
-  });
+    CustomerListCtrl = $controller('CustomerListCtrl');
+  }));
 
   it('should be defined', function () {
     expect(CustomerListCtrl).toBeDefined();
@@ -44,10 +27,6 @@ describe('Controller: CustomerListCtrl', function () {
 
   it('should attach a title to the scope', function () {
     expect(CustomerListCtrl.title).toEqual('Listado de Clientes');
-  });
-
-  xit('should set the default value of orderProp model', function () {
-    expect(scope.orderProp).toBe('lastName');
   });
 
   describe('should create a customers model that', function () {

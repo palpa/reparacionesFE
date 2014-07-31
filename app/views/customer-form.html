@@ -50,9 +50,9 @@
 
             </fieldset>
         </form>
-    </div>
 
-    <p>{{message}}</p>
+        <p ng-show="message" style="color: green">{{message}}</p>
+    </div>
 
     <div class="modal-footer">
         <button ng-show="readOnly.value" class="btn btn-warning" ng-click="edit()">Editar</button>

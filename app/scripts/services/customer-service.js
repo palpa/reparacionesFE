@@ -4,38 +4,27 @@ angular.module('reparacionesFeApp')
   .factory('CustomerService', function (ShopService) {
     // Service logic
     var hrefCustomer = 'customers';
-    var dataChanged = true;
 
     // Public API here
     return {
-      dataChanged: function () {
-        return dataChanged;
-      },
       load: function (offset) {
         return ShopService.getResource(hrefCustomer, offset);
       },
       query: function (offset) {
         return this.load(offset).then(function (customerResource) {
           return customerResource.$get('customerResourceList').then(function (customerResourceList) {
-            dataChanged = false;
             return {customers: customerResourceList, page: customerResource.page};
           });
         });
       },
       create: function (customer) {
-        return ShopService.createResource(hrefCustomer, customer).then(function () {
-          dataChanged = true;
-        });
+        return ShopService.createResource(hrefCustomer, customer);
       },
       edit: function (customer, data) {
-        return customer.$put('self', null, data).then(function () {
-          dataChanged = true;
-        });
+        return customer.$put('self', null, data);
       },
       delete: function (customer) {
-        return customer.$del('self').then(function () {
-          dataChanged = true;
-        });
+        return customer.$del('self');
       }
     };
   });

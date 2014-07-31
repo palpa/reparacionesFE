@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reparacionesFeApp')
-  .controller('CustomerListCtrl', function ($scope, CustomerService, $modal) {
+  .controller('CustomerListCtrl', function (CustomerService, $modal) {
 
     this.title = 'Listado de Clientes';
 
@@ -26,12 +26,18 @@ angular.module('reparacionesFeApp')
       setup(this.currentPage - 1, this);
     };
 
+    //Init
     this.currentPage = 1;
     this.pageChanged();
 
     this.removeCustomer = function (index, customer) {
       this.customers.splice(index, 1);
-      CustomerService.delete(customer);
+
+      var customerList = this;
+
+      CustomerService.delete(customer).then(function () {
+        customerList.pageChanged();
+      });
 
       if (isLastEmptyPage(this)) {
         this.currentPage--;
@@ -40,6 +46,8 @@ angular.module('reparacionesFeApp')
     };
 
     var ModalInstanceCtrl = function ($scope, $modalInstance, readOnly, selectedCustomer, CustomerService) {
+
+      var dataChanged = false;
 
       $scope.reset = function () {
         $scope.customer = angular.copy(selectedCustomer);
@@ -73,13 +81,15 @@ angular.module('reparacionesFeApp')
       $scope.submit = function () {
         if (angular.equals(selectedCustomer, {})) {
           CustomerService.create($scope.customer).then(function () {
-            $scope.message = 'Cliente creado con exito';
+            dataChanged = true;
+            $scope.message = 'Cliente creado con éxito';
             $scope.reset();
           });
         } else {
           CustomerService.edit(selectedCustomer, $scope.customer).then(function () {
             setReadOnly(true);
-            $scope.message = 'Cliente modificado con exito';
+            dataChanged = true;
+            $scope.message = 'Cliente modificado con éxito';
           });
         }
       };
@@ -90,7 +100,7 @@ angular.module('reparacionesFeApp')
       };
 
       $scope.close = function () {
-        $modalInstance.close();
+        $modalInstance.close(dataChanged);
       };
     };
 
@@ -99,6 +109,8 @@ angular.module('reparacionesFeApp')
       var modalInstance = $modal.open({
         templateUrl: 'views/customer-form.html',
         controller: ModalInstanceCtrl,
+        backdrop: false,
+        keyboard: false,
         resolve: {
           readOnly: function () {
             return {value: readOnly};
@@ -109,12 +121,12 @@ angular.module('reparacionesFeApp')
         }
       });
 
-      modalInstance.result.then(function (value) {
-        if (CustomerService.dataChanged()) {
+      modalInstance.result.then(function (dataChanged) {
+        if (dataChanged) {
           customerList.pageChanged();
         }
-      }, function () {
-        console.info('Modal dismissed at: ' + new Date());
+      }, function (reason) {
+        console.info('Modal dismissed at: ' + new Date() + ', ' + reason);
       });
     };
 
