@@ -5,14 +5,13 @@ angular.module('reparacionesFeApp')
 
     this.title = 'Listado de Clientes';
 
-    var setup = function (offset, customerList) {
+    var requestPage = function (offset, customerList) {
       CustomerService.query(offset).then(function (result) {
         customerList.customers = result.customers;
         customerList.page = result.page;
       });
     };
 
-    // Decrease current page number if it is needed for deletions
     var isLastEmptyPage = function (customerList) {
       if (customerList.currentPage > 1 &&
         customerList.page.totalPages === customerList.currentPage &&
@@ -23,27 +22,35 @@ angular.module('reparacionesFeApp')
     };
 
     this.pageChanged = function () {
-      setup(this.currentPage - 1, this);
+      requestPage(this.currentPage - 1, this);
     };
 
-    //Init
-    this.currentPage = 1;
-    this.pageChanged();
+    var setup = function (customerList) {
+      customerList.currentPage = 1;
+      customerList.pageChanged();
+    };
+
+    setup(this);
+
 
     this.removeCustomer = function (index, customer) {
+
+      // Remove customer from the collection
       this.customers.splice(index, 1);
 
-      var customerList = this;
+      // Decrease current page number
+      // if it is the last empty page after deletion
+      if (isLastEmptyPage(this)) {
+        this.currentPage--;
+      }
 
+      var customerList = this;
+      // Remove customer from the server
       CustomerService.delete(customer).then(function () {
         customerList.pageChanged();
       });
-
-      if (isLastEmptyPage(this)) {
-        this.currentPage--;
-        this.pageChanged();
-      }
     };
+
 
     var openCustomerModalForm = function (customer, readOnly, customerList) {
 
