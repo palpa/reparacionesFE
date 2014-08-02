@@ -10,9 +10,9 @@
             <fieldset ng-disabled="readOnly.value">
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="formFirstName">Nombre</label>
+                    <label class="col-md-3 control-label" for="formFirstName">Nombre</label>
 
-                    <div class="col-md-4">
+                    <div class="col-md-7">
                         <input id="formFirstName" name="firstName" ng-model="customer.firstName" type="text"
                                placeholder="Ingrese nombre del cliente" class="form-control input-md" required="">
 
@@ -21,22 +21,52 @@
 
                 <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="formLastName">Apellido</label>
+                    <label class="col-md-3 control-label" for="formLastName">Apellido</label>
 
-                    <div class="col-md-4">
+                    <div class="col-md-7">
                         <input id="formLastName" name="lastName" ng-model="customer.lastName" type="text"
                                placeholder="Ingrese apellido del cliente" class="form-control input-md" required="">
                         <span ng-show="customer.lastNameMsg" class="help-block">{{customer.lastNameMsg}}</span>
                     </div>
                 </div>
 
+                <!-- DNI input-->
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="formDNI">DNI</label>
+
+                    <div class="col-md-7">
+                        <input id="formDNI" name="dni" ng-model="customer.dni" type="text"
+                               placeholder="Ingrese DNI del cliente" class="form-control input-md">
+                    </div>
+                </div>
+
+                <!-- Address input-->
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="formAddress">Dirección</label>
+
+                    <div class="col-md-7">
+                        <input id="formAddress" name="address" ng-model="customer.address" type="text"
+                               placeholder="Ingrese Dirección del cliente" class="form-control input-md">
+                    </div>
+                </div>
+
                 <!-- Email input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label" for="formEmail">E-mail</label>
+                    <label class="col-md-3 control-label" for="formEmail">E-mail</label>
 
-                    <div class="col-md-4">
+                    <div class="col-md-7">
                         <input id="formEmail" name="email" ng-model="customer.email" type="email"
                                placeholder="Ingrese E-mail del cliente" class="form-control input-md">
+                    </div>
+                </div>
+
+                <!-- ContactNumber input-->
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="formContactNumber">Teléfono</label>
+
+                    <div class="col-md-7">
+                        <input id="formContactNumber" name="contactNumber" ng-model="customer.contactNumber" type="tel"
+                               placeholder="Ingrese Teléfono del cliente" class="form-control input-md">
                     </div>
                 </div>
 
