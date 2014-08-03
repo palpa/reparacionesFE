@@ -51,13 +51,13 @@
                     {{customer.email}}
                 </td>
                 <td style="width: 15%;">
-                    <a href="" ng-click="customerList.viewCustomerDetails(customer)" class="table-link btn btn-xs btn-info">
+                    <a href="" tooltip="Ver Detalle" ng-click="customerList.viewCustomerDetails(customer)" class="table-link btn btn-xs btn-info">
                         <span class="glyphicon glyphicon-zoom-in"></span>
                     </a>
-                    <a href="" ng-click="customerList.editCustomer(customer)" class="table-link btn btn-xs btn-warning">
+                    <a href="" tooltip="Editar" ng-click="customerList.editCustomer(customer)" class="table-link btn btn-xs btn-warning">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    <a href="" ng-click="customerList.removeCustomer($index, customer)" class="table-link btn btn-xs btn-danger">
+                    <a href="" tooltip="Borrar" ng-click="customerList.removeCustomer($index, customer)" class="table-link btn btn-xs btn-danger">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
                 </td>

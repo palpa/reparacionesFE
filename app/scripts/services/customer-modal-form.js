@@ -47,25 +47,29 @@ angular.module('reparacionesFeApp')
         if (angular.equals(selectedCustomer, {})) {
           CustomerService.create($scope.customer).then(function () {
             dataChanged = true;
-            $scope.message = 'Cliente creado con éxito';
+            $scope.alerts = [{ type: 'success', msg: 'Cliente creado con éxito' }];
             $scope.reset();
           });
         } else {
           CustomerService.edit(selectedCustomer, $scope.customer).then(function () {
             setReadOnly(true);
             dataChanged = true;
-            $scope.message = 'Cliente modificado con éxito';
+            $scope.alerts = [{ type: 'success', msg: 'Cliente modificado con éxito' }];
           });
         }
       };
 
       $scope.edit = function () {
         setReadOnly(false);
-        $scope.message = null;
+        $scope.closeAlert();
       };
 
       $scope.close = function () {
         $modalInstance.close(dataChanged);
+      };
+
+      $scope.closeAlert = function () {
+        $scope.alerts = null;
       };
     };
 

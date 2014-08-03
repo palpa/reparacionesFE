@@ -14,7 +14,7 @@
 
                     <div class="col-md-7">
                         <input id="formFirstName" name="firstName" ng-model="customer.firstName" type="text"
-                               placeholder="Ingrese nombre del cliente" class="form-control input-md" required="">
+                               placeholder="Ingrese nombre del cliente" class="form-control input-md" required>
 
                     </div>
                 </div>
@@ -25,7 +25,7 @@
 
                     <div class="col-md-7">
                         <input id="formLastName" name="lastName" ng-model="customer.lastName" type="text"
-                               placeholder="Ingrese apellido del cliente" class="form-control input-md" required="">
+                               placeholder="Ingrese apellido del cliente" class="form-control input-md" required>
                         <span ng-show="customer.lastNameMsg" class="help-block">{{customer.lastNameMsg}}</span>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
 
                     <div class="col-md-7">
                         <input id="formDNI" name="dni" ng-model="customer.dni" type="text"
-                               placeholder="Ingrese DNI del cliente" class="form-control input-md">
+                               placeholder="Ingrese DNI del cliente" class="form-control input-md" required>
                     </div>
                 </div>
 
@@ -81,7 +81,8 @@
             </fieldset>
         </form>
 
-        <p ng-show="message" style="color: green">{{message}}</p>
+        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert()">{{alert.msg}}</alert>
+
     </div>
 
     <div class="modal-footer">
